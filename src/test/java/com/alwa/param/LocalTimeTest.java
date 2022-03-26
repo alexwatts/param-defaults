@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -53,6 +54,12 @@ public class LocalTimeTest {
     public void testLocalTimeNoon() {
         ResponseEntity<LocalTime> exchange = testRestTemplate.exchange("/params/local-time-noon", HttpMethod.GET, new HttpEntity<>(null, headers), LocalTime.class);
         assertThat(exchange.getBody(), equalTo(LocalTime.NOON));
+    }
+
+    @Test
+    public void testAtomicLong() {
+        ResponseEntity<AtomicLong> exchange = testRestTemplate.exchange("/params/atomic-long", HttpMethod.GET, new HttpEntity<>(null, headers), AtomicLong.class);
+        assertThat(exchange.getBody(), equalTo(new AtomicLong(15L)));
     }
 
 }
